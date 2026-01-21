@@ -2,7 +2,7 @@
 // Minimal WebSerial flasher: writes ONE binary to ONE flash offset.
 // Uses esptool-js from CDN (loaded in index.html).
 
-/* global ESPLoader, Transport */
+
 
 function hexToInt(h) {
   if (typeof h !== "string") return h;
@@ -18,10 +18,8 @@ async function flashOneImage({ imageBytes, addressHex, log }) {
   const port = await navigator.serial.requestPort();
   await port.open({ baudRate: 115200 });
 
-  const transport = new window.Transport(port);
+  const transport = new Transport(port);
 
-
-  // ESPLoader will auto-detect chip. Works for ESP32 + ESP32-S3.
   const loader = new ESPLoader({
     transport,
     baudrate: 115200,
@@ -56,7 +54,11 @@ async function flashOneImage({ imageBytes, addressHex, log }) {
     await loader.writeFlash(flashOptions);
     log("🎉 Flash complete. You can now reset / reboot the board.");
   } finally {
-    try { await transport.disconnect(); } catch {}
-    try { await port.close(); } catch {}
+    try {
+      await transport.disconnect();
+    } catch {}
+    try {
+      await port.close();
+    } catch {}
   }
 }
