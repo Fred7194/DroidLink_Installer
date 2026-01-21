@@ -4,7 +4,7 @@
     "versions": [
       {
         "version": "v0",
-        "file": "bins/DroidLink-Universal-v0.bin",
+        "file": "bins/droidlink_universal_slave_v0.bin",
         "address": "0x10000"
       }
     ]
