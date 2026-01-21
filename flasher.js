@@ -12,12 +12,12 @@ async function flashOneImage({ imageBytes, addressHex, log }) {
     throw new Error("Web Serial not supported. Use Chrome or Edge.");
   }
 
-  // Ask user for a serial port
+  // User must pick port
   const port = await navigator.serial.requestPort();
   await port.open({ baudRate: 115200 });
 
+  // These are GLOBALS provided by serial.js
   const transport = new Transport(port);
-
   const loader = new ESPLoader({
     transport,
     baudrate: 115200,
@@ -30,33 +30,24 @@ async function flashOneImage({ imageBytes, addressHex, log }) {
 
   try {
     log("🔎 Detecting chip...");
-    const chip = await loader.main("no_reset"); // connect + sync
+    const chip = await loader.main();
     log(`✅ Connected. Detected: ${chip}`);
 
-    // Optional: bump baud for faster flashing (some USB-serial adapters dislike high rates)
-    // await transport.setBaudRate(460800);
-    // log("⚡ Baud set to 460800");
-
     const address = hexToInt(addressHex);
-    log(`🧩 Flashing ${imageBytes.length} bytes to ${addressHex} ...`);
+    log(`🧩 Flashing ${imageBytes.length} bytes to ${addressHex}...`);
 
-    // Flash a single segment
-    const flashOptions = {
+    await loader.writeFlash({
       fileArray: [{ data: imageBytes, address }],
-      flashSize: "keep", // keep existing flash size
+      flashSize: "keep",
       flashMode: "keep",
       flashFreq: "keep",
       compress: true,
-    };
+    });
 
-    await loader.writeFlash(flashOptions);
-    log("🎉 Flash complete. You can now reset / reboot the board.");
+    log("🎉 Flash complete. Reset the board.");
   } finally {
-    try {
-      await transport.disconnect();
-    } catch {}
-    try {
-      await port.close();
-    } catch {}
+    try { await transport.disconnect(); } catch {}
+    try { await port.close(); } catch {}
   }
 }
+
