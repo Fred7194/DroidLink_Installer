@@ -1,15 +1,25 @@
 {
-  "name": "DroidLink Universal Slave",
+  "name": "DroidLink Universal Slave (Factory)",
   "version": "v0",
-  "home_assistant_domain": "droidlink",
-  "funding_url": "https://github.com/fred7194",
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
         {
+          "path": "bins/bootloader.bin",
+          "offset": 4096
+        },
+        {
+          "path": "bins/partitions.bin",
+          "offset": 32768
+        },
+        {
           "path": "bins/DroidLink_Universal_Slave_V0.bin",
           "offset": 65536
+        },
+        {
+          "path": "bins/spiffs.bin",
+          "offset": 2686976
         }
       ]
     }
