@@ -1,24 +1,24 @@
 {
   "name": "DroidLink Universal Slave (Factory)",
-  "version": "v0",
+  "version": "V1.0",
   "builds": [
     {
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "bins/bootloader.bin",
+          "path": "https://droidlink-gatekeeper.fmoore1124.workers.dev/download/file?product=slave&version=V1.0&name=bootloader.bin",
           "offset": 4096
         },
         {
-          "path": "bins/partitions.bin",
+          "path": "https://droidlink-gatekeeper.fmoore1124.workers.dev/download/file?product=slave&version=V1.0&name=partitions.bin",
           "offset": 32768
         },
         {
-          "path": "bins/DroidLink_Universal_Slave_V0.bin",
+          "path": "https://droidlink-gatekeeper.fmoore1124.workers.dev/download/file?product=slave&version=V1.0&name=firmware.bin",
           "offset": 65536
         },
         {
-          "path": "bins/spiffs.bin",
+          "path": "https://droidlink-gatekeeper.fmoore1124.workers.dev/download/file?product=slave&version=V1.0&name=spiffs.bin",
           "offset": 2686976
         }
       ]

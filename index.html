@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DroidLink Installer</title>
-    <style>
-      body {
-        background: #000;
-        color: #0f0;
-        font-family: monospace;
+<head>
+  <meta charset="utf-8">
+  <title>DroidLink Installer</title>
+</head>
+<body>
+
+<h2>DroidLink Firmware Installer</h2>
+
+<label>
+  License Key:
+  <input id="license" placeholder="XXXX-XXXX" />
+</label>
+
+<br><br>
+
+<button id="install">Install Universal Slave</button>
+
+<script type="module">
+  import { install } from "https://unpkg.com/esp-web-tools@9/dist/web/install.js";
+
+  document.getElementById("install").onclick = async () => {
+    const license = document.getElementById("license").value.trim();
+    if (!license) {
+      alert("License key required");
+      return;
+    }
+
+    await install({
+      manifest: "https://droidlink.github.io/DroidLink_Installer/manifest.json",
+      beforeInstall: async () => {
+        // Inject license header for all fetches
+        const originalFetch = window.fetch;
+        window.fetch = (url, options = {}) => {
+          options.headers = {
+            ...(options.headers || {}),
+            "x-license-key": license
+          };
+          return originalFetch(url, options);
+        };
       }
-      .card {
-        border: 1px solid #0f0;
-        padding: 20px;
-        border-radius: 12px;
-      }
-    </style>
+    });
+  };
+</script>
 
-    <script
-      type="module"
-      src="https://unpkg.com/esp-web-tools@latest/dist/web/install-button.js"
-    ></script>
-  </head>
-
-  <body>
-    <h1>DroidLink Installer</h1>
-
-    <div class="card">
-      <p>Universal Slave Firmware</p>
-
-      <esp-web-install-button manifest="manifest.json">
-        <button>Install Universal Slave</button>
-      </esp-web-install-button>
-    </div>
-  </body>
+</body>
 </html>
