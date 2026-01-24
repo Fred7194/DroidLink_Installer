@@ -1,36 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>DroidLink Installer</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>DroidLink Installer</title>
 
-<h2>DroidLink Firmware Installer</h2>
+    <style>
+      body {
+        background: #000;
+        color: #0f0;
+        font-family: monospace;
+      }
+      .card {
+        border: 1px solid #0f0;
+        padding: 20px;
+        border-radius: 12px;
+        width: 320px;
+      }
+    </style>
 
-<label>
-  License Key:
-  <input id="license" placeholder="XXXX-XXXX" />
-</label>
+    <script
+      type="module"
+      src="https://unpkg.com/esp-web-tools@latest/dist/web/install-button.js">
+    </script>
+  </head>
 
-<br><br>
+  <body>
+    <h1>DroidLink Installer</h1>
 
-<button id="install">Install Universal Slave</button>
+    <div class="card">
+      <p>Universal Slave Firmware</p>
 
-<script type="module">
-  import { install } from "https://unpkg.com/esp-web-tools@9/dist/web/install.js";
+      <label>
+        License Key:
+        <input id="license" placeholder="TEST-123" />
+      </label>
 
-  document.getElementById("install").onclick = async () => {
-    const license = document.getElementById("license").value.trim();
-    if (!license) {
-      alert("License key required");
-      return;
-    }
+      <br><br>
 
-    await install({
-      manifest: "https://droidlink.github.io/DroidLink_Installer/manifest.json",
-      beforeInstall: async () => {
-        // Inject license header for all fetches
+      <esp-web-install-button id="install">
+        <button slot="activate">Install Universal Slave</button>
+      </esp-web-install-button>
+    </div>
+
+    <script>
+      const button = document.getElementById("install");
+
+      button.addEventListener("click", () => {
+        const license = document.getElementById("license").value.trim();
+        if (!license) {
+          alert("License key required");
+          return;
+        }
+
+        // Inject license header for ALL firmware fetches
         const originalFetch = window.fetch;
         window.fetch = (url, options = {}) => {
           options.headers = {
@@ -39,10 +61,11 @@
           };
           return originalFetch(url, options);
         };
-      }
-    });
-  };
-</script>
 
-</body>
+        // Point to your Pages manifest
+        button.manifest =
+          "https://droidlink.github.io/DroidLink_Installer/manifest.json";
+      });
+    </script>
+  </body>
 </html>
