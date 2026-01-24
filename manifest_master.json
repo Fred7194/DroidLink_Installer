@@ -1,6 +1,6 @@
 {
   "name": "DroidLink Master Controller",
-  "version": "1.0.0",
+  "version": "V1.0",
   "builds": [
     {
       "chipFamily": "ESP32-S3",
