@@ -7,7 +7,7 @@
       "parts": [
         {
           "path": "https://droidlink-gatekeeper.fmoore1124.workers.dev/download/file?product=master&version=V1.0&name=bootloader.bin",
-          "offset": 4096
+          "offset": 0
         },
         {
           "path": "https://droidlink-gatekeeper.fmoore1124.workers.dev/download/file?product=master&version=V1.0&name=partitions.bin",
