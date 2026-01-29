@@ -17,17 +17,27 @@
         justify-content: center;
       }
 
+      .installer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
       h1 {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
         font-size: 3.0rem;
         text-align: center;
         color: #e6e6e6;
       }
 
-      .installer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      /* Logo under header */
+      .logo {
+        width: 120px;
+        max-width: 60%;
+        height: auto;
+        margin-bottom: 24px;
+
+        filter: drop-shadow(0 0 10px rgba(77, 163, 255, 0.4));
       }
 
       .card {
@@ -45,34 +55,6 @@
         margin-bottom: 12px;
         color: #aaa;
       }
-      
-.logo {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-
-  width: 72px;
-  height: auto;
-
-  opacity: 0.9;
-  filter: drop-shadow(0 0 8px rgba(77, 163, 255, 0.45));
-
-  animation: fadeIn 0.8s ease-out;
-}
-
-
-     @keyframes fadeIn {
-       from {
-         opacity: 0;
-         transform: translateY(-6px);
-     }
-       to {
-         opacity: 1;
-         transform: translateY(0);
-      }
-     }
-
-
 
       .firmware-select button {
         width: 100%;
@@ -116,10 +98,28 @@
         font-weight: bold;
       }
 
+      .footer-link {
+        margin-top: 16px;
+        font-size: 0.85rem;
+        opacity: 0.8;
+      }
+
+      .footer-link a {
+        color: #4da3ff;
+        text-decoration: none;
+      }
+
+      .footer-link a:hover {
+        text-decoration: underline;
+      }
 
       @media (max-width: 480px) {
         .card {
           width: 90%;
+        }
+
+        .logo {
+          width: 96px;
         }
       }
     </style>
@@ -132,8 +132,10 @@
 
   <body>
     <div class="installer">
-      <img src="R2.png" alt="DroidLink Logo" class="logo"/> 
       <h1>DroidLink Installer</h1>
+
+      <!-- Logo under header -->
+      <img src="R2.png" alt="DroidLink Logo" class="logo" />
 
       <div class="card">
         <p>Select Firmware</p>
@@ -162,6 +164,12 @@
         <esp-web-install-button id="install" class="install-btn">
           <button slot="activate">Install Firmware</button>
         </esp-web-install-button>
+      </div>
+
+      <div class="footer-link">
+        <a href="https://linktr.ee/droidlink" target="_blank" rel="noopener">
+          Click Here for Part list
+        </a>
       </div>
     </div>
 
