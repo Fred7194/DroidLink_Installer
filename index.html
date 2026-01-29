@@ -46,18 +46,20 @@
         color: #aaa;
       }
       
-      .logo {
-        width: 160px;
-        max-width: 80%;
-        height: auto;
-        margin-bottom: 16px;
+.logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
 
-       /* glow */
-        filter: drop-shadow(0 0 10px rgba(77, 163, 255, 0.5));
+  width: 72px;
+  height: auto;
 
-      /* fade-in animation */
-       animation: fadeIn 0.8s ease-out;
-     }
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(77, 163, 255, 0.45));
+
+  animation: fadeIn 0.8s ease-out;
+}
+
 
      @keyframes fadeIn {
        from {
